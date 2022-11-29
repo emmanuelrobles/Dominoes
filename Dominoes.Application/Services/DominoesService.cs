@@ -25,5 +25,4 @@ public class DominoesService
         return _jornadaRepository.FirstOrDefault(jornada => jornada.Id == id);
     }
     
-    public Jornada
 }
