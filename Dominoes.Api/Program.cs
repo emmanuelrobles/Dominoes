@@ -17,11 +17,13 @@ builder.Services.AddSwaggerGen();
 var mongoConfig = builder.Configuration.GetSection("MongoDb").Get<MongoConfig>();
 
 // Register Jornada Repo
-builder.Services.AddTransient<IJornadaRepository>(_ => 
-    new JornadaRepository(mongoConfig.ConnectionString,mongoConfig.DatabaseName, mongoConfig.JornadaCollectionName));
+builder.Services.AddTransient<IJornadaRepository>(_ =>
+    new JornadaRepository(mongoConfig.ConnectionString, mongoConfig.DatabaseName, mongoConfig.JornadaCollectionName));
 // Register Dominoes service
 builder.Services.AddTransient<DominoesService>();
 
+// Cors
+builder.Services.AddCors();
 
 var app = builder.Build();
 
@@ -31,6 +33,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+// handles cors
+app.UseCors(b =>
+{
+    b
+        .AllowAnyOrigin()
+        .AllowAnyMethod()
+        .AllowAnyHeader();
+});
 
 app.UseHttpsRedirection();
 
