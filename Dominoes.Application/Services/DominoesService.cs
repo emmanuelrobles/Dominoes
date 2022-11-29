@@ -20,9 +20,20 @@ public class DominoesService
     /// </summary>
     /// <param name="id"></param>
     /// <returns>returns the jornada or null if not found</returns>
-    public Jornada? GetJornadaById(uint id)
+    public Jornada? GetJornadaById(Guid id)
     {
         return _jornadaRepository.FirstOrDefault(jornada => jornada.Id == id);
+    }
+
+    /// <summary>
+    /// Creates a Jornada
+    /// </summary>
+    /// <param name="jornada"></param>
+    /// <returns></returns>
+    public Jornada CreateJornada(Jornada jornada)
+    {
+        _jornadaRepository.Add(jornada);
+        return jornada;
     }
     
 }
