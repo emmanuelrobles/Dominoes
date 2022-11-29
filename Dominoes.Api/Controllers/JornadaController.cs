@@ -1,3 +1,5 @@
+using Dominoes.Api.Mappers;
+using Dominoes.Api.Models;
 using Dominoes.Application.Services;
 using Dominoes.Core;
 using Microsoft.AspNetCore.Mvc;
@@ -20,8 +22,8 @@ public class JornadaController : ControllerBase
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    [HttpGet("{id}")]
-    public ActionResult<Jornada> GetJornadaById(uint id)
+    [HttpGet("{id:guid}")]
+    public ActionResult<Jornada> GetJornadaById(Guid id)
     {
         var jornada = _dominoesService.GetJornadaById(id);
         if (jornada is null)
@@ -31,6 +33,18 @@ public class JornadaController : ControllerBase
 
         return Ok(jornada);
     }
-    
-    
+
+    /// <summary>
+    /// Creates a Jornada given a jornada model
+    /// </summary>
+    /// <param name="jornadaModel"></param>
+    /// <returns></returns>
+    [HttpPost]
+    public ActionResult<Jornada> CreateJornada(JornadaModel jornadaModel)
+    {
+        var jornada = _dominoesService.CreateJornada(jornadaModel.ToEntity());
+        return CreatedAtAction(nameof(GetJornadaById), jornada.Id, jornada);
+    }
+
+
 }

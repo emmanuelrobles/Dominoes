@@ -1,15 +1,10 @@
-using System;
+namespace Dominoes.Api.Models;
 
-namespace Dominoes.Core;
-
-public class Encounter
+/// <summary>
+/// Represent an Encounter being sent by the client
+/// </summary>
+public class EncounterModel
 {
-
-    /// <summary>
-    /// Encounter Guid
-    /// </summary>
-    public Guid Id { get; init; }
-    
     /// <summary>
     /// Date when the encounter occured
     /// </summary>

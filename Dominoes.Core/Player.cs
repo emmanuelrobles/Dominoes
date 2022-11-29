@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -5,6 +6,11 @@ namespace Dominoes.Core;
 
 public class Player
 {
+    /// <summary>
+    /// Players Id
+    /// </summary>
+    public Guid Id { get; init; }
+    
     /// <summary>
     /// Players Name
     /// </summary>
