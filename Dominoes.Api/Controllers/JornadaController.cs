@@ -31,4 +31,6 @@ public class JornadaController : ControllerBase
 
         return Ok(jornada);
     }
+    
+    
 }
