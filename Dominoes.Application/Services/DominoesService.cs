@@ -1,3 +1,4 @@
+using Dominoes.Application.Exceptions;
 using Dominoes.Application.Repositories;
 using Dominoes.Core;
 
@@ -35,5 +36,29 @@ public class DominoesService
         _jornadaRepository.Add(jornada);
         return jornada;
     }
-    
+
+    /// <summary>
+    /// Creates a player on a given jornada 
+    /// </summary>
+    /// <param name="jornadaId"></param>
+    /// <param name="player"></param>
+    /// <returns></returns>
+    public Player CreatesPlayerOnJornada(Guid jornadaId, Player player)
+    {
+        var jornada = _jornadaRepository.FirstOrDefault(j => j.Id == jornadaId);
+        // check if we have a jornada
+        if (jornada is null)
+        {
+            throw new DataNotFoundException($"Jornada with Id {jornadaId} does not exists");
+        }
+        
+        // check if that jornada has a player with that name
+        if (jornada.Players.Any(p => p.Name == player.Name))
+        {
+            throw new DataAlreadyExistsException($"A Player with the name {player.Name} already exists on Jornada {jornadaId}");
+        }
+        
+        _jornadaRepository.CreatePlayerForJornada(jornadaId, player);
+        return player;
+    }
 }
