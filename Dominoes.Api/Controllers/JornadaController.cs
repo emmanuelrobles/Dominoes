@@ -43,7 +43,7 @@ public class JornadaController : ControllerBase
     public ActionResult<Jornada> CreateJornada(JornadaModel jornadaModel)
     {
         var jornada = _dominoesService.CreateJornada(jornadaModel.ToEntity());
-        return CreatedAtAction(nameof(GetJornadaById), jornada.Id, jornada);
+        return CreatedAtAction(nameof(GetJornadaById), new {id = jornada.Id}, jornada);
     }
 
 
